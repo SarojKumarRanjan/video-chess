@@ -1,0 +1,38 @@
+
+{
+  "name": "chess-ws",
+  "version": "1.0.0",
+  "description": "WebSocket server for chess game",
+  "main": "src/server.ts",
+  "scripts": {
+    "dev": "ts-node-dev --respawn --transpile-only src/server.ts",
+    "build": "tsc",
+    "start": "node dist/server.js"
+
+    
+  },
+
+
+
+
+
+  "dependencies": {
+    "@prisma/client": "^6.6.0",
+    "@types/jsonwebtoken": "^9.0.9",
+    "@types/node": "^22.14.1",
+    "@types/uuid": "^10.0.0",
+    "@types/ws": "^8.18.1",
+    "chess.js": "^1.2.0",
+    "dotenv": "^16.5.0",
+    "init": "^0.1.2",
+    "ioredis": "^5.6.1",
+    "jsonwebtoken": "^9.0.2",
+    "prisma": "^6.6.0",
+    "ts-node-dev": "^2.0.0",
+    "typescript": "^5.8.3",
+    "uuid": "^11.1.0",
+    "ws": "^8.18.1"
+  }
+
+}
+

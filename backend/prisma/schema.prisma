@@ -1,0 +1,82 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+ 
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+
+model User {
+  id        String    @id @default(cuid())
+  name      String
+  email     String?   @unique
+  googleId  String?   @unique
+  isGuest   Boolean   @default(false)
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  whiteGames Game[] @relation("WhitePlayer")
+  blackGames Game[] @relation("BlackPlayer")
+  wonGames   Game[] @relation("Winner")
+  moves      Move[]
+}
+
+model Game {
+  id            String    @id @default(cuid())
+  whitePlayer   User?     @relation("WhitePlayer", fields: [whitePlayerId], references: [id])
+  whitePlayerId String?
+  blackPlayer   User?     @relation("BlackPlayer", fields: [blackPlayerId], references: [id])
+  blackPlayerId String?
+  winner        User?     @relation("Winner", fields: [winnerId], references: [id])
+  winnerId      String?
+  currentFen    String?   @default("rnbqkb1r/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1") // FEN string for the current position
+  turn         String?    @default("w")
+  whiteTimeLeft Float     @default(600000)
+  blackTimeLeft Float     @default(600000)
+  lastMoveTimestamp DateTime?  @default(now())
+  pgn           String?   
+  status        String    
+  timeControl   Int       
+  startTime     DateTime  @default(now())
+  endTime       DateTime?
+  moves         Move[]
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  @@index([whitePlayerId])
+  @@index([blackPlayerId])
+  @@index([status])
+}
+
+
+
+model Move{
+id       String   @id @default(cuid())
+game     Game     @relation(fields: [gameId], references: [id])
+gameId   String
+player   User     @relation(fields: [playerId], references: [id])
+playerId String
+moveNumber Int
+moveSAN String
+fenAfterMove String
+timestamp DateTime @default(now())
+
+whiteTimeLeft Float
+blackTimeLeft Float
+createdAt DateTime @default(now())
+
+
+  @@index([gameId])
+  
+  @@index([moveNumber,gameId])
+  @@index([playerId])
+
+
+}
