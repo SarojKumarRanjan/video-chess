@@ -4,6 +4,7 @@ node_modules
 
 dist
 # Ignore build output
+
 # Ignore coverage output
 coverage
 # Ignore test output
