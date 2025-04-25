@@ -1,6 +1,6 @@
 import Redis from 'ioredis';
 
-const redisUrl = "rediss://default:AVNS_Gr1rW3yCUFbHxxZhUJi@redis-abishek7766-a16d.h.aivencloud.com:27843";
+const redisUrl = process.env.REDIS_URL;
 if (!redisUrl) {
   console.error("REDIS_URL environment variable is not set!");
   process.exit(1);
