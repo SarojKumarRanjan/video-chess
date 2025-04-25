@@ -1,3 +1,17 @@
 node_modules
 # Keep environment variables out of version control
 .env
+
+dist
+# Ignore build output
+# Ignore coverage output
+coverage
+# Ignore test output
+# Ignore IDE files
+.idea
+# Ignore log files
+*.log
+# Ignore temporary files
+*.tmp
+# Ignore OS generated files
+.DS_Store
